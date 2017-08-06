@@ -10,7 +10,6 @@ public class StudentTest {
 	@Test
 	public void test() {
 		Student s = new Student();
-		s.setId(1);
 		s.setName("Syf");
 		s.setAge(12);
 		
