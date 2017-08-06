@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.syf.hibernate.Session;
-import com.syf.hibernate.model.Student;
 
 public class StudentsTest {
 
@@ -24,7 +23,7 @@ public class StudentsTest {
 	@Test
 	public void student() throws Exception {
 		Student s = new Student();
-		s.setId(1);
+		s.setId(2);
 		s.setName("syf");
 		s.setAge(12);
 
