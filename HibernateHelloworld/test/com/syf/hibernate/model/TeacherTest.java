@@ -7,7 +7,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class StudentTest {
+public class TeacherTest {
 
 	private static SessionFactory sf = null;
 	
@@ -24,13 +24,12 @@ public class StudentTest {
 	
 	@Test
 	public void test() {
-		Student stu = new Student();
-		stu.setName("Syf");
-		stu.setAge(12);
-		
+		Teacher t = new Teacher();
+		t.setName("Syf");
+		t.setTitle("master");		
 		Session session = sf.openSession();
 		session.beginTransaction();
-		session.save(stu);
+		session.save(t);
 		session.getTransaction().commit();
 		session.close();
 	}
