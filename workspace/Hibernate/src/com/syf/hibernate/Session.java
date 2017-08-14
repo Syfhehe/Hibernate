@@ -29,7 +29,7 @@ public class Session {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		for (int i = 0; i < methodNames.length; i++) {
 			Method m = s.getClass().getMethod(methodNames[i]);
-			Class r = m.getReturnType();
+			Class<?> r = m.getReturnType();
 
 			if (r.getName().equals("java.lang.String")) {
 				String returnValue = (String) m.invoke(s);
