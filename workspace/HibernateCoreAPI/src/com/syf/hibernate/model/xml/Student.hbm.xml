@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping package="com.syf.hibernate.model.xml">
-   <class name="Student" table="xml_student">
+   <class name="Student" table="xml_student" dynamic-update="true">
 	  <id name="id" column="_id" type="int">
       	<generator class="increment"/>
       </id>
