@@ -149,6 +149,76 @@ public class StudentTest {
 		q.executeUpdate();
 		session.getTransaction().commit();
 	}
+	
+	@Test
+	public void testSaveOrUpate() {
+		Student stu =new Student();
+		stu.setAge(11);
+		stu.setName("xule");
+		Session session = sf.getCurrentSession();
+		session.beginTransaction();
+		session.saveOrUpdate(stu);
+		session.getTransaction().commit();
+		
+		stu.setName("xulepangzi");
+		Session session2 = sf.getCurrentSession();
+		session2.beginTransaction();
+		session2.saveOrUpdate(stu);
+		session2.getTransaction().commit();		
+	}
+	
+	//只发送一条sql语句，因为load 把对象放在缓存。
+	@Test
+	public void testClear() {
+		Session session = sf.getCurrentSession();
+		session.beginTransaction();
+
+		Student stu = session.load(Student.class, 1);
+		System.out.println(stu.getName());
+		
+		Student stu2 = session.load(Student.class, 1);
+		System.out.println(stu2.getName());
+		
+		session.getTransaction().commit();		
+	}
+	
+	//发送2条sql语句，因为load 把对象放在缓存。Clear 清除缓存
+	@Test
+	public void testClear2() {
+		Session session = sf.getCurrentSession();
+		session.beginTransaction();
+
+		Student stu = session.load(Student.class, 1);
+		System.out.println(stu.getName());
+		
+		session.clear();
+		
+		Student stu2 = session.load(Student.class, 1);
+		System.out.println(stu2.getName());
+		
+		session.getTransaction().commit();		
+	}
+	
+	//flush内存和数据库保持一致
+	@Test
+	public void testFlush() {
+		Session session = sf.getCurrentSession();
+		session.beginTransaction();
+
+		Student stu = session.load(Student.class, 1);
+		
+		stu.setName("111");
+		
+		session.flush();
+		
+		stu.setName("222");
+		
+		session.getTransaction().commit();		
+	}
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 		beforeClass();
