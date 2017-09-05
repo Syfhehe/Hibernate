@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project name="HibernateHelloworld" default="test" basedir=".">
+    <property name="build.dir" value="build"/>
+    <property name="src.dir" value="src"/>
+    <property name="test.dir" value="test"/>
+    <property name="src.build.dir" value="build/src"/>
+    <property name="test.build.dir" value="build/test"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${basedir}/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="test.classpath">
+        <path refid="compile.classpath"/>
+        <pathelement location="lib/junit.jar"/>
+        <pathelement location="${src.build.dir}"/>
+    </path>
+
+    <target name="clean" description="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="init" depends="clean" description="create folders">
+        <mkdir dir="${src.dir}"/>
+        <mkdir dir="${test.dir}"/>
+        <mkdir dir="${src.build.dir}"/>
+        <mkdir dir="${test.build.dir}"/>
+        <copy file="${src.dir}/hibernate.cfg.xml" tofile="${src.build.dir}/hibernate.cfg.xml"/>
+        <copy todir="${src.build.dir}">
+            <fileset dir="${src.dir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source">
+        <javac srcdir="${src.dir}" destdir="${src.build.dir}" classpathref="compile.classpath"/>
+    </target>
+
+    <target name="test-compile" depends="compile">
+        <javac srcdir="${test.dir}" destdir="${test.build.dir}" classpathref="test.classpath"/>
+    </target>
+
+    <target name="test" depends="test-compile">
+        <junit printsummary="on" haltonfailure="yes" fork="true">
+            <classpath>
+                <path refid="test.classpath"/>
+                <pathelement location="${test.build.dir}"/>
+            </classpath>
+            <formatter type="brief" usefile="false"/>
+            <batchtest>
+                <fileset dir="${test.dir}" includes="**/*Test.java"/>
+            </batchtest>
+        </junit>
+    </target>
+
+</project>
