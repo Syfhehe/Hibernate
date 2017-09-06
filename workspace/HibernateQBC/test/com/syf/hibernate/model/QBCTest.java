@@ -1,11 +1,7 @@
 package com.syf.hibernate.model;
 
 import java.util.Date;
-import java.util.List;
-
 import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -14,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class OneToOneTest {
+public class QBCTest {
 
 	private static SessionFactory sf = null;
 
